@@ -41,9 +41,9 @@ const Login: React.FC = () => {
 
         // Redirección entre proyectos cabezona
         if (user.rol === "admin") {
-          window.location.href = "http://localhost:5173/";
+          window.location.href = "./Mapa2.tsx";
         } else {
-          window.location.href = "http://localhost:5174/Users";
+          window.location.href = "./MapaVisitante.tsx";
         }
 
 
