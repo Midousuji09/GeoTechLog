@@ -33,16 +33,16 @@ const Login: React.FC = () => {
 
       if (response.ok) {
         const user = data.user;
-        alert(`Bienvenido ${user.Nombre}`);
+        alert(`Bienvenido ${user.nombre}`);
 
         localStorage.setItem("usuario", JSON.stringify(user));
         localStorage.setItem("token", data.token);
 
         // Redirección entre proyectos cabezona
-        if (user.rol === "admin") {
-          window.location.href = "./Mapa2.tsx";
+        if (user.rol === 1) {
+          navigate("/dashboard");
         } else {
-          window.location.href = "./MapaVisitante.tsx";
+          navigate("./MapaVisitante.tsx");
         }
 
 

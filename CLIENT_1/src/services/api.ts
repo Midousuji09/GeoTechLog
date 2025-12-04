@@ -29,3 +29,4 @@ export async function apiFetch<T>(path: string, opts: FetchOptions = {}): Promis
   }
   return (await res.json()) as T;
 }
+export const api = { fetch: apiFetch };
