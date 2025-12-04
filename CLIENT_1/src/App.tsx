@@ -1,12 +1,10 @@
 // App.tsx
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
-// 👇 Auth pages
 import Login from "./components/Login";
 import RegisterPage from "./components/Register";
 
-// 👇 App pages
 import Dashboard from "./pages/Dashboard";
 import Perfil from "./pages/Perfil";
 import Info from "./pages/Info";
@@ -16,27 +14,26 @@ import VisitanteDashboard from "./pages/VisitanteDashboard";
 
 import Navbar from "./components/Navbar";
 
-export default function App() {
+function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
 
-  // 👉 Ocultar navbar en Login y Register
+  // ✔ Correcto: React detecta cambios en la ruta
   const hideNavbarPaths = ["/", "/register"];
-  const currentPath = window.location.pathname;
-  const showNavbar = !hideNavbarPaths.includes(currentPath);
+  const showNavbar = !hideNavbarPaths.includes(location.pathname);
 
   return (
-    <BrowserRouter>
-      {/* 🔝 Mostrar Navbar solo cuando no estemos en Login o Register */}
+    <>
       {showNavbar && (
         <Navbar onMenuClick={() => setSidebarOpen(true)} />
       )}
 
       <Routes>
-        {/* 🔐 Auth */}
+        {/* Auth */}
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        {/* 🧭 App */}
+        {/* App */}
         <Route
           path="/dashboard"
           element={
@@ -52,6 +49,14 @@ export default function App() {
         <Route path="/configuracion" element={<Configuracion />} />
         <Route path="/visitante" element={<VisitanteDashboard />} />
       </Routes>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }

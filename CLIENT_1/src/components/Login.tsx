@@ -20,7 +20,7 @@ const Login: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/usuarios", {
+      const response = await fetch("http://localhost:8080/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -33,16 +33,16 @@ const Login: React.FC = () => {
 
       if (response.ok) {
         const user = data.user;
-        alert(`Bienvenido ${user.Nombre}`);
+        alert(`Bienvenido ${user.nombre}`);
 
         localStorage.setItem("usuario", JSON.stringify(user));
         localStorage.setItem("token", data.token);
 
         // Redirección entre proyectos cabezona
-        if (user.rol === "admin") {
-          window.location.href = "./Mapa2.tsx";
+        if (user.rol === 1) {
+          navigate("/dashboard");
         } else {
-          window.location.href = "./MapaVisitante.tsx";
+          navigate("./MapaVisitante.tsx");
         }
 
 
