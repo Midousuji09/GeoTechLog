@@ -265,13 +265,8 @@ export default function MapaAdmin({
           <div style={{ marginLeft: "auto", display: "flex", gap: "15px", flexWrap: "wrap" }}>
             <span>
               <strong>{visitors[usuarioSeleccionado].name}</strong>
-              {visitors[usuarioSeleccionado].email && ` - ${visitors[usuarioSeleccionado].email}`}
             </span>
-            {visitors[usuarioSeleccionado].dbUserId && (
-              <span>ID BD: {visitors[usuarioSeleccionado].dbUserId}</span>
-            )}
-            <span>Puntos: {visitors[usuarioSeleccionado].positions.length}</span>
-            <span>Última: {visitors[usuarioSeleccionado].lastUpdate.toLocaleTimeString()}</span>
+
           </div>
         )}
       </div>
