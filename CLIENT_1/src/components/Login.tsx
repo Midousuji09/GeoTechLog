@@ -27,7 +27,7 @@ Swal.fire({
   }
 });
     try {
-      const response = await fetch("https://nontesting-unindicatively-nicolle.ngrok-free.dev/login", {
+      const response = await fetch("https://nontesting-unindicatively-nicolle.ngrok-free.dev", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
