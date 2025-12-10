@@ -12,23 +12,23 @@ export default function Dashboard({ sidebarOpen, onSidebarClose }: DashboardProp
   return (
     <div
       style={{
-        height: "calc(100vh - 64px)", // 🔹 Resta la altura del Navbar global (64px aprox)
-        overflow: "hidden", // 🔹 Evita scroll innecesario
-        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        height: "100dvh", // 🔥 Usa la nueva unidad "dvh" para móviles
+        overflow: "hidden",
       }}
     >
-      {/* 🗺️ Mapa ocupa todo el espacio disponible */}
+      {/* Contenedor del mapa */}
       <div
         style={{
-          width: "100%",
-          height: "100%",
+          flex: 1, // 🔥 Ocupar TODO el espacio disponible
           position: "relative",
         }}
       >
         <Mapa />
       </div>
 
-      {/* 📋 Drawer lateral */}
+      {/* Sidebar */}
       <Drawer
         anchor="left"
         open={sidebarOpen}

@@ -1,100 +1,48 @@
 // src/components/LeftSidebar.tsx
 import React from "react";
-import {
-  Box,
-  Typography,
-  Button,
-  Divider,
-  MenuItem,
-  TextField,
-  IconButton,
-} from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Box, Button, Divider, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface LeftSidebarProps {
   onClose: () => void;
 }
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({ onClose }) => {
+  const navigate = useNavigate();
+  const usuario = JSON.parse(localStorage.getItem("usuario") || "null");
+
+  const go = (ruta: string) => {
+    navigate(ruta);
+    onClose();
+  };
+
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      {/* 🔙 Botón para cerrar */}
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-        <IconButton onClick={onClose} size="small" sx={{ color: "#2e7d32" }}>
-          <ArrowBackIcon />
-        </IconButton>
-        <Typography
-          variant="h6"
-          sx={{ fontWeight: "bold", color: "#1e293b", textAlign: "center" }}
-        >
-          Instrucciones
-        </Typography>
-      </Box>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
+        Menú
+      </Typography>
 
-      {/* Selects */}
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <TextField
-          select
-          label="Tipo de partida"
-          defaultValue=""
-          variant="outlined"
-          size="small"
-          sx={{
-            backgroundColor: "white",
-            borderRadius: 1,
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": { borderColor: "#d1d5db" },
-              "&:hover fieldset": { borderColor: "#2e7d32" },
-            },
-          }}
-        >
-          <MenuItem value="">Elige el tipo de partida</MenuItem>
-          <MenuItem value="puntoA">Punto A</MenuItem>
-          <MenuItem value="ubicacionActual">Ubicación actual</MenuItem>
-        </TextField>
-
-        <TextField
-          select
-          label="Destino"
-          defaultValue=""
-          variant="outlined"
-          size="small"
-          sx={{
-            backgroundColor: "white",
-            borderRadius: 1,
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": { borderColor: "#d1d5db" },
-              "&:hover fieldset": { borderColor: "#2e7d32" },
-            },
-          }}
-        >
-          <MenuItem value="">Elige el destino</MenuItem>
-          <MenuItem value="puntoB">Punto B</MenuItem>
-          <MenuItem value="personalizado">Personalizado</MenuItem>
-        </TextField>
-      </Box>
-
-      {/* Botón principal */}
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: "#2e7d32",
-          "&:hover": { backgroundColor: "#1b5e20" },
-          textTransform: "none",
-          fontWeight: "bold",
-        }}
-      >
-        Iniciar recorrido
+      <Button variant="outlined" onClick={() => go("/dashboard")}>
+        Explorar
       </Button>
 
-      {/* Instrucción inferior */}
+      <Button variant="outlined" onClick={() => go("/info")}>
+        Información
+      </Button>
+
+      <Button variant="outlined" onClick={() => go("/contacto")}>
+        Contacto
+      </Button>
+
+      {usuario?.rol === 1 && (
+        <Button variant="outlined" onClick={() => go("/seguimiento")}>
+          Seguimiento
+        </Button>
+      )}
+
       <Divider />
-      <Typography
-        variant="body2"
-        sx={{ color: "#6b7280", textAlign: "center" }}
-      >
-        Selecciona puntos en el mapa para crear una ruta.
-      </Typography>
+
+
     </Box>
   );
 };

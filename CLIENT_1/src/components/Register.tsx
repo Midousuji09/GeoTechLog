@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css"; // reutilizamos los estilos del login
+import Swal from "sweetalert2";
+import "./Login.css";
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -22,30 +23,52 @@ const Register: React.FC = () => {
     e.preventDefault();
     setLoading(true);
 
-     try {
-      
- const response = await fetch("http://localhost:8080/usuarios", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    Nombre: formData.Nombre,
-    Email: formData.Email,
-    Documento: formData.Documento,
-    Password: formData.Password,
-  }),
-});
+    // 🔵 Loading elegante
+    Swal.fire({
+      title: "Creando cuenta...",
+      html: "Espera un momento por favor",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      const response = await fetch("https://unladled-geophysical-ruthanne.ngrok-free.dev/usuarios", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
 
       if (response.ok) {
-        alert("Registro exitoso. Ahora puedes iniciar sesión.");
-        navigate("/");
+        // 🟢 Registro correcto
+        Swal.fire({
+          icon: "success",
+          title: "Cuenta creada",
+          text: "Ahora puedes iniciar sesión",
+          showConfirmButton: true,
+          confirmButtonColor: "#3085d6",
+        }).then(() => navigate("/"));
       } else {
-        alert(`Error: ${data.error || "No se pudo registrar"}`);
+        // 🔴 Error del backend
+        Swal.fire({
+          icon: "error",
+          title: "Error al registrarse",
+          text: data.error || "Revisa los datos e inténtalo nuevamente",
+          confirmButtonColor: "#d33",
+        });
       }
     } catch (error) {
       console.error(error);
-      alert("Error de conexión con el servidor.");
+
+      Swal.fire({
+        icon: "error",
+        title: "Error de conexión",
+        text: "No se pudo conectar con el servidor",
+        confirmButtonColor: "#d33",
+      });
     } finally {
       setLoading(false);
     }
@@ -75,6 +98,7 @@ const Register: React.FC = () => {
               required
             />
           </div>
+
           <div className="input-group">
             <input
               type="email"
@@ -85,6 +109,7 @@ const Register: React.FC = () => {
               required
             />
           </div>
+
           <div className="input-group">
             <input
               type="text"
@@ -95,6 +120,7 @@ const Register: React.FC = () => {
               required
             />
           </div>
+
           <div className="input-group">
             <input
               type="password"

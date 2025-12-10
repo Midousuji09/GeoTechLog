@@ -1,5 +1,5 @@
 // client1/src/services/api.ts
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+const API_BASE = import.meta.env.VITE_API_BASE || "https://unladled-geophysical-ruthanne.ngrok-free.dev";
 
 type FetchOptions = RequestInit & { query?: Record<string,string|number> };
 
