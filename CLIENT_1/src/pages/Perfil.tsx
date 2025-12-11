@@ -49,7 +49,7 @@ export default function Perfil() {
     }
 
     // Usa el ID del usuario real
-    fetch(`https://nontesting-unindicatively-nicolle.ngrok-free.dev/usuarios/${userStorage.id}`)
+    fetch(`http://localhost:8080/usuarios/${userStorage.id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -81,7 +81,7 @@ export default function Perfil() {
     if (!usuario) return;
 
     try {
-      const res = await fetch(`https://nontesting-unindicatively-nicolle.ngrok-free.dev/usuarios/${usuario.IdUsuario}`, {
+      const res = await fetch(`http://localhost:8080/usuarios/${usuario.IdUsuario}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editData),

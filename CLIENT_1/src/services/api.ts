@@ -1,6 +1,5 @@
 // client1/src/services/api.ts
-// api.ts
-const API_BASE = import.meta.env.VITE_API_BASE || "https://nontesting-unindicatively-nicolle.ngrok-free.dev";
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
 
 type FetchOptions = RequestInit & { query?: Record<string,string|number> };
 

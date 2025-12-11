@@ -22,7 +22,7 @@ export default function Configuracion() {
 
   // Cargar configuración actual del usuario
   useEffect(() => {
-    fetch(`https://nontesting-unindicatively-nicolle.ngrok-free.dev/usuarios/${usuarioId}`)
+    fetch(`http://localhost:8080/usuarios/${usuarioId}`)
       .then((res) => res.json())
       .then((data) => {
         setNotificaciones(data.notificaciones ?? true);
@@ -39,7 +39,7 @@ export default function Configuracion() {
       password: password || undefined,
     };
 
-    const res = await fetch(`https://nontesting-unindicatively-nicolle.ngrok-free.dev/usuarios/${usuarioId}`, {
+    const res = await fetch(`http://localhost:8080/usuarios/${usuarioId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
